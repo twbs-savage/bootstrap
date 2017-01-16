@@ -112,11 +112,8 @@ const Collapse = (($) => {
     }
 
     show() {
-      if (this._isTransitioning) {
-        throw new Error('Collapse is transitioning')
-      }
-
-      if ($(this._element).hasClass(ClassName.SHOW)) {
+      if (this._isTransitioning ||
+        $(this._element).hasClass(ClassName.SHOW)) {
         return
       }
 
@@ -196,11 +193,8 @@ const Collapse = (($) => {
     }
 
     hide() {
-      if (this._isTransitioning) {
-        throw new Error('Collapse is transitioning')
-      }
-
-      if (!$(this._element).hasClass(ClassName.SHOW)) {
+      if (this._isTransitioning ||
+        !$(this._element).hasClass(ClassName.SHOW)) {
         return
       }
 

@@ -19,14 +19,6 @@ module.exports = function (grunt) {
   var path = require('path')
   var isTravis = require('is-travis')
 
-  var configBridge = grunt.file.readJSON('./grunt/configBridge.json', { encoding: 'utf8' })
-
-  Object.keys(configBridge.paths).forEach(function (key) {
-    configBridge.paths[key].forEach(function (val, i, arr) {
-      arr[i] = path.join('./docs', val)
-    })
-  })
-
   // Project configuration.
   grunt.initConfig({
 

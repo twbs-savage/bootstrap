@@ -441,10 +441,17 @@ const Tooltip = (($) => {
 
     _cleanTipClass() {
       const $tip = $(this.getTipElement())
-      if (this.config.toggle === 'tooltip') {
-        $tip.attr('class', 'tooltip fade')
-      } else {
-        $tip.attr('class', 'popover fade')
+      const tabClass = $tip[0].classList
+      let tabClassStr = $tip.attr('class')
+      let i = 0
+      while (tabClassStr.indexOf(CLASS_PREFIX) !== -1) {
+        if (tabClass[i].indexOf(CLASS_PREFIX) !== -1) {
+          $tip.removeClass(tabClass[i])
+          tabClassStr = $tip.attr('class')
+          i = 0
+        } else {
+          i++
+        }
       }
     }
 

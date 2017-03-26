@@ -879,7 +879,7 @@ $(function () {
       .on('hidden.bs.tooltip', function () {
         var tooltip = $el.data('bs.tooltip')
         var $tooltip = $(tooltip.getTipElement())
-        assert.ok($tooltip[0].classList.length === 2)
+        assert.ok($tooltip.attr('class').split(' ').length === 2)
         done()
       })
 

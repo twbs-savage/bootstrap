@@ -24,9 +24,11 @@ const Dropdown = (($) => {
   const DATA_API_KEY             = '.data-api'
   const JQUERY_NO_CONFLICT       = $.fn[NAME]
   const ESCAPE_KEYCODE           = 27 // KeyboardEvent.which value for Escape (Esc) key
+  const SPACE_KEYCODE            = 32 // KeyboardEvent.which value for space key
   const ARROW_UP_KEYCODE         = 38 // KeyboardEvent.which value for up arrow key
   const ARROW_DOWN_KEYCODE       = 40 // KeyboardEvent.which value for down arrow key
   const RIGHT_MOUSE_BUTTON_WHICH = 3 // MouseEvent.which value for the right button (assuming a right-handed mouse)
+  const REGEXP_KEYDOWN = new RegExp(`${ARROW_UP_KEYCODE}|${ARROW_DOWN_KEYCODE}|${ESCAPE_KEYCODE}|${SPACE_KEYCODE}`)
 
   const Event = {
     HIDE             : `hide${EVENT_KEY}`,
@@ -95,16 +97,6 @@ const Dropdown = (($) => {
         return false
       }
 
-      if ('ontouchstart' in document.documentElement &&
-         !$(parent).closest(Selector.NAVBAR_NAV).length) {
-
-        // if mobile we use a backdrop because click events don't delegate
-        const dropdown     = document.createElement('div')
-        dropdown.className = ClassName.BACKDROP
-        $(dropdown).insertBefore(this)
-        $(dropdown).on('click', Dropdown._clearMenus)
-      }
-
       const relatedTarget = {
         relatedTarget : this
       }
@@ -114,6 +106,17 @@ const Dropdown = (($) => {
 
       if (showEvent.isDefaultPrevented()) {
         return false
+      }
+
+      // set the backdrop only if the dropdown menu will be opened
+      if ('ontouchstart' in document.documentElement &&
+         !$(parent).closest(Selector.NAVBAR_NAV).length) {
+
+        // if mobile we use a backdrop because click events don't delegate
+        const dropdown     = document.createElement('div')
+        dropdown.className = ClassName.BACKDROP
+        $(dropdown).insertBefore(this)
+        $(dropdown).on('click', Dropdown._clearMenus)
       }
 
       this.focus()
@@ -164,11 +167,6 @@ const Dropdown = (($) => {
         return
       }
 
-      const backdrop = $(Selector.BACKDROP)[0]
-      if (backdrop) {
-        backdrop.parentNode.removeChild(backdrop)
-      }
-
       const toggles = $.makeArray($(Selector.DATA_TOGGLE))
 
       for (let i = 0; i < toggles.length; i++) {
@@ -193,6 +191,12 @@ const Dropdown = (($) => {
           continue
         }
 
+        // remove backdrop only if the dropdown menu will be hidden
+        const backdrop = $(parent).find(Selector.BACKDROP)[0]
+        if (backdrop) {
+          backdrop.parentNode.removeChild(backdrop)
+        }
+
         toggles[i].setAttribute('aria-expanded', 'false')
 
         $(parent)
@@ -213,7 +217,7 @@ const Dropdown = (($) => {
     }
 
     static _dataApiKeydownHandler(event) {
-      if (!/(38|40|27|32)/.test(event.which) ||
+      if (!REGEXP_KEYDOWN.test(event.which) ||
          /input|textarea/i.test(event.target.tagName)) {
         return
       }

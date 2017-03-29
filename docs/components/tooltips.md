@@ -255,6 +255,9 @@ Options for individual tooltips can alternatively be specified through the use o
 
 ### Methods
 
+{% capture callout-include %}{% include callout-danger-async-methods.md %}{% endcapture %}
+{{ callout-include | markdownify }}
+
 #### `$().tooltip(options)`
 
 Attaches a tooltip handler to an element collection.

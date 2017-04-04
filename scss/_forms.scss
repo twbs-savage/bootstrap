@@ -253,7 +253,7 @@ select.form-control-lg {
 .form-control-feedback {
   margin-top: $form-feedback-margin-top;
 
-  &:after {
+  &::after {
     display: block;
     content: "";
     opacity: 0;
@@ -280,7 +280,7 @@ select.form-control-lg {
     background-image: $form-icon-success;
   }
 
-  .form-control-feedback:after {
+  .form-control-feedback::after {
     content: attr(data-success);
     opacity: 1;
   }
@@ -293,7 +293,7 @@ select.form-control-lg {
     background-image: $form-icon-warning;
   }
 
-  .form-control-feedback:after {
+  .form-control-feedback::after {
     content: attr(data-warning);
     opacity: 1;
   }
@@ -306,7 +306,7 @@ select.form-control-lg {
     background-image: $form-icon-danger;
   }
 
-  .form-control-feedback:after {
+  .form-control-feedback::after {
     content: attr(data-danger);
     opacity: 1;
   }

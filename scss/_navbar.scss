@@ -45,7 +45,7 @@
 
 .navbar-brand {
   display: inline-block;
-  align-self: flex-start;
+  align-self: center;
   padding-top: $navbar-brand-padding-y;
   padding-bottom: $navbar-brand-padding-y;
   margin-right: $navbar-padding-x;
@@ -102,7 +102,7 @@
 
 // Button for toggling the navbar when in its collapsed state
 .navbar-toggler {
-  align-self: flex-start; // Prevent toggler from growing to full width when it's the only visible navbar child
+  align-self: center;
   padding: $navbar-toggler-padding-y $navbar-toggler-padding-x;
   font-size: $navbar-toggler-font-size;
   line-height: 1;

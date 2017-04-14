@@ -383,8 +383,6 @@ $(function () {
         var $tooltip = $($(this).data('bs.tooltip').tip)
         assert.ok($tooltip.hasClass('bs-tooltip-right'))
         assert.ok($tooltip.attr('style') === undefined)
-        $(this).bootstrapTooltip('hide')
-        $container.remove()
         $styles.remove()
         done()
       })
@@ -700,43 +698,6 @@ $(function () {
     assert.ok(obj._hoverState === 'show', 'the tooltip hoverState should be set to "show"')
 
     assert.strictEqual(currentUid, $('#tt-content').text())
-  })
-
-  QUnit.test('should correctly position tooltips on transformed elements', function (assert) {
-    var styleProps = document.documentElement.style
-    if (!('transform' in styleProps) && !('webkitTransform' in styleProps) && !('msTransform' in styleProps)) {
-      assert.expect(0)
-      return
-    }
-    assert.expect(2)
-
-    var done = assert.async()
-
-    var styles = '<style>'
-        + '#qunit-fixture { top: 0; left: 0; }'
-        + '.tooltip, .tooltip *, .tooltip *:before, .tooltip *:after { box-sizing: border-box; }'
-        + '.tooltip { position: absolute; }'
-        + '.tooltip .tooltip-inner { width: 24px; height: 24px; font-family: Helvetica; }'
-        + '#target { position: absolute; top: 100px; left: 50px; width: 100px; height: 200px; -webkit-transform: rotate(270deg); -ms-transform: rotate(270deg); transform: rotate(270deg); }'
-        + '</style>'
-    var $styles = $(styles).appendTo('head')
-
-    var $element = $('<div id="target" title="1"/>').appendTo('#qunit-fixture')
-
-    $element
-      .on('shown.bs.tooltip', function () {
-        var offset = $('.tooltip').offset()
-        $styles.remove()
-        assert.ok(Math.abs(offset.left - 88) <= 1, 'tooltip has correct horizontal location')
-        assert.ok(Math.abs(offset.top - 126) <= 1, 'tooltip has correct vertical location')
-        $element.bootstrapTooltip('hide')
-        done()
-      })
-      .bootstrapTooltip({
-        trigger: 'manual'
-      })
-
-    $element.bootstrapTooltip('show')
   })
 
   QUnit.test('should do nothing when an attempt is made to hide an uninitialized tooltip', function (assert) {

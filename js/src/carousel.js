@@ -56,6 +56,7 @@ const Carousel = (($) => {
     KEYDOWN        : `keydown${EVENT_KEY}`,
     MOUSEENTER     : `mouseenter${EVENT_KEY}`,
     MOUSELEAVE     : `mouseleave${EVENT_KEY}`,
+    TOUCHEND       : `touchend${EVENT_KEY}`,
     LOAD_DATA_API  : `load${EVENT_KEY}${DATA_API_KEY}`,
     CLICK_DATA_API : `click${EVENT_KEY}${DATA_API_KEY}`
   }
@@ -231,6 +232,17 @@ const Carousel = (($) => {
         $(this._element)
           .on(Event.MOUSEENTER, (event) => this.pause(event))
           .on(Event.MOUSELEAVE, (event) => this.cycle(event))
+          if ('ontouchstart' in document.documentElement) {
+            // if it's a touch-enabled device, mouseenter/leave are fired as
+            // part of the mouse compatibility events on tap - the carousel
+            // would stop cycling until user tapped out of it;
+            // here, we explicitly listen for touchend and after a timeout
+            // (to allow for mouse compatibility events to fire and trigger
+            // the above mouseenter event) we explicitly restart cycling
+            $(this._element).on(Event.TOUCHEND, function(event) {
+              setTimeout((event) => this.cycle(event), 500 + this._config.interval)
+            }.bind(this))
+          }
       }
     }
 

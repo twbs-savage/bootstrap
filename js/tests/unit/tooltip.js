@@ -473,32 +473,19 @@ $(function () {
       })
       .appendTo('#qunit-fixture')
 
-    $('#qunit-fixture').css({
-      position : 'relative',
-      top : '0px',
-      left : '0px'
-    })
-
-    var $trigger = $container
+    $container
       .find('a')
       .css('margin-top', 200)
       .bootstrapTooltip({
         placement: 'top',
         animate: false
       })
-      .bootstrapTooltip('show')
-
-    var $tooltip = $($trigger.data('bs.tooltip').tip)
-
-    setTimeout(function () {
-      assert.ok(Math.round($tooltip.offset().top + $tooltip.outerHeight()) <= Math.round($trigger.offset().top))
-      $('#qunit-fixture').css({
-        position : 'absolute',
-        top : '-10000px',
-        left : '-10000px'
+      .on('shown.bs.tooltip', function () {
+        var $tooltip = $($(this).data('bs.tooltip').tip)
+        assert.ok(Math.round($tooltip.offset().top + $tooltip.outerHeight()) >= Math.round($(this).offset().top))
+        done()
       })
-      done()
-    }, 0)
+      .bootstrapTooltip('show')
   })
 
   QUnit.test('should show tooltip if leave event hasn\'t occurred before delay expires', function (assert) {

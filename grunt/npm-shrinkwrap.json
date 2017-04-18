@@ -3792,10 +3792,10 @@
       "resolved": "https://registry.npmjs.org/temporary/-/temporary-0.0.8.tgz",
       "dev": true
     },
-    "tether": {
+    "popper.js": {
       "version": "1.4.0",
-      "from": "tether@>=1.4.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/tether/-/tether-1.4.0.tgz"
+      "from": "popper.js@>=1.4.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/popper.js/-/popper.js-1.8.1.tgz"
     },
     "text-table": {
       "version": "0.2.0",

@@ -50,7 +50,7 @@
   {
     browserName: "iphone",
     deviceName: "iPhone Simulator",
-    platformName: "OS X 10.10",
+    platformName: "OS X 10.11",
     version: "9.3"
   },
 

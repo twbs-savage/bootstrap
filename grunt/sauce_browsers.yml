@@ -50,8 +50,8 @@
   {
     browserName: "iphone",
     deviceName: "iPhone Simulator",
-    platformVersion: "9.3",
-    platformName: "OS X 10.10"
+    platformName: "OS X 10.10",
+    version: "9.3"
   },
 
   # iOS Chrome not currently supported by Sauce Labs

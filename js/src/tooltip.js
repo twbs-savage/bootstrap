@@ -227,6 +227,9 @@ const Tooltip = (($) => {
       this._timeout       = null
       this._hoverState    = null
       this._activeTrigger = null
+      if (this._popper !== null) {
+        this._popper.destroy()
+      }
       this._popper        = null
 
       this.element = null
@@ -370,6 +373,11 @@ const Tooltip = (($) => {
       this._hoverState = ''
     }
 
+    update() {
+      if (this._popper !== null) {
+        this._popper.scheduleUpdate()
+      }
+    }
 
     // protected
 
@@ -631,8 +639,8 @@ const Tooltip = (($) => {
     }
 
     _handlePopperPlacementChange(data) {
-        this._cleanTipClass()
-        this.addAttachmentClass(this._getAttachment(data.placement))
+      this._cleanTipClass()
+      this.addAttachmentClass(this._getAttachment(data.placement))
     }
 
     // static

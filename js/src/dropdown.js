@@ -71,12 +71,14 @@ const Dropdown = (($) => {
 
   const Default = {
     placement   : AttachmentMap.BOTTOM,
-    offset      : 0
+    offset      : 0,
+    flip        : true
   }
 
   const DefaultType = {
     placement   : 'string',
-    offset      : '(number|string)'
+    offset      : '(number|string)',
+    flip        : 'boolean'
   }
 
 
@@ -153,6 +155,9 @@ const Dropdown = (($) => {
         modifiers : {
           offset : {
             offset : context._config.offset
+          },
+          flip : {
+            enabled : context._config.flip
           }
         }
       })
@@ -207,6 +212,8 @@ const Dropdown = (($) => {
         $(this._element).data(),
         config
       )
+
+      config.placement = AttachmentMap[config.placement.toUpperCase()]
 
       Util.typeCheckConfig(
         NAME,

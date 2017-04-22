@@ -42,7 +42,7 @@ Prevent text from wrapping with a `.text-nowrap` class.
     Curabitur blandit tempus ardua ridiculus sed magna.
   </div>
   <div class="col-11">
-    <img data-src="holder.js/50x50" alt="An image to show the text doesn't wrap">
+    <img src="/assets/img/spacer.png" data-src="holder.js/50x50" alt="An image to show the text doesn't wrap">
   </div>
 </div>
 {% endexample %}

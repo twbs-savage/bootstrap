@@ -54,7 +54,7 @@
     "release-zip": "cd dist/ && zip -r9 bootstrap-$npm_package_version-dist.zip * && shx mv bootstrap-$npm_package_version-dist.zip ..",
     "dist": "npm-run-all --parallel css js",
     "test": "npm-run-all dist js-test docs",
-    "watch": "nodemon -e scss -x \"npm run css\""
+    "watch": "nodemon -e scss -x \"npm run css && npm run css-docs\""
   },
   "style": "dist/css/bootstrap.css",
   "sass": "scss/bootstrap.scss",

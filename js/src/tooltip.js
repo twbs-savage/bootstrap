@@ -306,8 +306,6 @@ const Tooltip = (($) => {
           }
         })
 
-        Util.reflow(tip)
-
         $(tip).addClass(ClassName.SHOW)
 
         // if this is a touch-enabled device we add extra
@@ -319,6 +317,9 @@ const Tooltip = (($) => {
         }
 
         const complete = () => {
+          if (this.config.animation) {
+            this.fixTransition()
+          }
           const prevHoverState = this._hoverState
           this._hoverState     = null
 
@@ -333,11 +334,24 @@ const Tooltip = (($) => {
           $(this.tip)
             .one(Util.TRANSITION_END, complete)
             .emulateTransitionEnd(Tooltip._TRANSITION_DURATION)
-          return
         }
-
-        complete()
+        else {
+          complete()
+        }
       }
+    }
+
+    fixTransition() {
+      const tip                 = this.getTipElement()
+      const initConfigAnimation = this.config.animation
+      if (tip.getAttribute('x-placement') !== null) {
+        return;
+      }
+      $(tip).removeClass(ClassName.FADE)
+      this.config.animation = false
+      this.hide()
+      this.show()
+      this.config.animation = initConfigAnimation
     }
 
     hide(callback) {

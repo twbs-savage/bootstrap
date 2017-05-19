@@ -241,15 +241,19 @@ const Dropdown = (($) => {
     _beforePopperApplyStyle(data) {
       if ($(data.instance.popper).hasClass(ClassName.MENURIGHT)) {
         data.styles = {
+          transform: 'unset',
           right: 0,
-          left: 'auto'
+          left: 'auto',
+          top: ''
         }
       }
 
       if ($(data.instance.popper).hasClass(ClassName.MENULEFT)) {
         data.styles = {
+          transform: 'unset',
           right: 'auto',
-          left: 0
+          left: 0,
+          top: ''
         }
       }
       return data
